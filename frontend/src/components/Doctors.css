@@ -1,0 +1,121 @@
+.main-doc-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+ 
+.doctors-section {
+    width: 45%;
+    height: 100vh;
+    text-align: center;
+    margin-left: 80px;
+    /* Added margin for spacing */
+}
+ 
+/* Add the doctor card styles */
+.doctor-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+ 
+    &:hover {
+        transform: scale(1.02);
+    }
+ 
+    p {
+        margin: 0;
+    }
+
+}
+ 
+/* Add the form section styles */
+ 
+.form-sections {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 700px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+ 
+    h4 {
+        margin-bottom: 16px;
+        text-align: center;
+    }
+ 
+    form {
+        display: flex;
+        flex-direction: column;
+ 
+        label {
+            margin-bottom: 8px;
+        }
+ 
+        input {
+            padding: 8px;
+            margin-bottom: 16px;
+        }
+    }
+}
+ 
+button {
+    align-self: flex-start;
+    margin-top: 8px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px;
+    cursor: pointer;
+ 
+    &:hover {
+        background-color: #0056b3;
+    }
+}
+ 
+.btn-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .doctors-section,
+    .form-sections {
+      max-width: 100%; /* Take full width on smaller screens */
+      flex: 100%;
+      margin-left: 0; /* Remove left margin for smaller screens */
+    }
+  
+    .main-doc-container {
+      padding: 10px; /* Reduce padding on smaller screens */
+      gap: 10px; /* Reduce gap on smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .doctors-section,
+    .form-sections {
+      padding: 10px; /* Further reduce padding on very small screens */
+      margin-bottom: 0; /* Remove bottom margin to avoid extra white space */
+    }
+  
+    button {
+      width: 100%; /* Full-width buttons on very small screens */
+      text-align: center; /* Center-align button text */
+    }
+  
+    .form-sections form {
+      input {
+        width: 100%; /* Full-width inputs on very small screens */
+      }
+    }
+  }
+  

@@ -1,0 +1,140 @@
+.appointment-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 300px;
+    padding: 16px;
+    margin-bottom: 16px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+
+    &:hover {
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    }
+
+    p {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    p {
+        span {
+            font-weight: 900;
+        }
+    }
+
+    button {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        margin-right: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+            background-color: #002e5f;
+        }
+    }
+}
+
+.appointment-form {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-form h4 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.appointment-form label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.appointment-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 20px;
+}
+
+.appointment-form select {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    height: 40px; /* Increase height for better touch targets */
+}
+
+.appointment-form button {
+    display: block; /* Display button as block element */
+    width: 100%;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.appointment-form button:hover {
+    background-color: #0056b3;
+}
+
+.appointments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    width: 30vw;
+}
+
+.add-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 650px;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .appointments {
+        max-width: 100%;
+        flex: 100%;
+        margin-left: 0; /* Remove left margin for smaller screens */
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .appointments {
+        padding: 10px; /* Further reduce padding on very small screens */
+        margin-bottom: 0; /* Remove bottom margin to avoid extra white space */
+    }
+
+    .appointment-card {
+        width: 100%; /* Full-width cards on very small screens */
+        margin: 10px 0; /* Adjust margin for better spacing */
+    }
+
+    .add-form {
+        margin-bottom: 20px; /* Reduce bottom margin */
+    }
+
+    .appointment-form input,
+    .appointment-form select {
+        width: 100%; /* Full-width inputs and selects on very small screens */
+    }
+}
