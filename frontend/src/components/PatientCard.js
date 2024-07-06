@@ -13,11 +13,26 @@ const PatientCard = ({ patient, onEdit, onDelete }) => {
     });
   };
 
+  // Function to calculate age based on dob
+  const calculateAge = (dob) => {
+    const today = new Date();
+    const birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
+
   return (
     <div className="patient-card">
       <h4>{patient.name}</h4>
       <p>DOB: {formatDate(patient.dob)}</p>
-      <p>Age: {patient.age}</p>
+      <p>Age: {calculateAge(patient.dob)}</p>
       <p>Gender: {patient.gender}</p>
       <p>Insurance: {patient.insurance}</p>
       <div className="btn-container" style={{ width: "100%" }}>

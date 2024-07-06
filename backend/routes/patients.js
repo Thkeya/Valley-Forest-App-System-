@@ -11,12 +11,11 @@ router.route("/").get((req, res) => {
 
 // Add new patient
 router.route("/add").post((req, res) => {
-  const { name, dob, age, gender, insurance } = req.body;
+  const { name, dob, gender, insurance } = req.body;
 
   const newPatient = new Patient({
     name,
-    dob,
-    age,
+    dob: new Date(dob), // Ensure dob is stored as a Date object
     gender,
     insurance,
   });
@@ -29,8 +28,6 @@ router.route("/add").post((req, res) => {
 
 // Update patient data
 router.route("/update/:id").post((req, res) => {
-  console.log("Patient updated Id");
-
   Patient.findById(req.params.id)
     .then((patient) => {
       if (!patient) {
@@ -38,8 +35,7 @@ router.route("/update/:id").post((req, res) => {
       }
 
       patient.name = req.body.name;
-      patient.dob = req.body.dob;
-      patient.age = req.body.age;
+      patient.dob = new Date(req.body.dob); // Update dob as Date object
       patient.gender = req.body.gender;
       patient.insurance = req.body.insurance;
 

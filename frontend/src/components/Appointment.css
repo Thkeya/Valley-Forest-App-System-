@@ -46,6 +46,7 @@
     border-radius: 8px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* Add margin bottom for spacing */
 }
 
 .appointment-form h4 {
@@ -58,31 +59,27 @@
     margin-bottom: 8px;
 }
 
-.appointment-form input {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 20px;
+.appointment-form input,
+.appointment-form select {
+    width: calc(100% - 20px); /* Adjust width to leave space for padding */
+    padding: 10px; /* Increase padding for better spacing */
+    margin-bottom: 16px; /* Increase bottom margin for spacing */
     border: 1px solid #ddd;
     border-radius: 4px;
-    height: 20px;
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
 }
 
 .appointment-form select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
     height: 40px; /* Increase height for better touch targets */
 }
 
 .appointment-form button {
-    display: block; /* Display button as block element */
+    display: block;
     width: 100%;
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 20px; /* Adjust padding for better appearance */
     border-radius: 4px;
     margin-top: 20px;
     cursor: pointer;
@@ -116,6 +113,16 @@
         flex: 100%;
         margin-left: 0; /* Remove left margin for smaller screens */
         padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .appointment-form {
+        width: 100%; /* Full-width form on smaller screens */
+        padding: 16px; /* Adjust padding for smaller screens */
+    }
+
+    .appointment-form input,
+    .appointment-form select {
+        width: 100%; /* Full-width inputs and selects on smaller screens */
     }
 }
 

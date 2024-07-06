@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import "./Patients.css";
 import PatientCard from "./PatientCard";
@@ -8,25 +8,44 @@ const Patients = () => {
   const [newPatient, setNewPatient] = useState({
     name: "",
     dob: "",
-    age: "",
     gender: "",
     insurance: "",
   });
   const [selectedPatient, setSelectedPatient] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
 
-  useEffect(() => {
+  const fetchPatients = useCallback(() => {
     axios
       .get("http://localhost:4000/patients")
       .then((response) => {
         const patientsData = response.data.map((patient) => ({
           ...patient,
           dob: new Date(patient.dob).toISOString(), // Convert date string to UTC format
+          age: calculateAge(patient.dob), // Calculate age based on dob
         }));
         setPatients(patientsData);
       })
       .catch((error) => console.error("Error fetching patients:", error));
-  }, []);
+  }, []); // Empty dependency array because fetchPatients does not depend on any props or state
+
+  useEffect(() => {
+    fetchPatients();
+  }, [fetchPatients]); // Include fetchPatients in the dependency array of useEffect
+
+  // Function to calculate age based on dob
+  const calculateAge = (dob) => {
+    const today = new Date();
+    const birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (
+      monthDiff < 0 ||
+      (monthDiff === 0 && today.getDate() < birthDate.getDate())
+    ) {
+      age--;
+    }
+    return age;
+  };
 
   const handleAddPatient = (e) => {
     e.preventDefault();
@@ -35,12 +54,10 @@ const Patients = () => {
       .post("http://localhost:4000/patients/add", newPatient)
       .then((response) => {
         console.log(response.data);
-        setPatients([...patients, response.data]);
+        fetchPatients(); // Refresh patients list after adding new patient
         setNewPatient({
-          ...newPatient,
           name: "",
           dob: "",
-          age: "",
           gender: "",
           insurance: "",
         });
@@ -54,15 +71,10 @@ const Patients = () => {
     axios
       .post(`http://localhost:4000/patients/update/${id}`, selectedPatient)
       .then((response) => {
-        const updatePat = { ...selectedPatient, _id: id };
-        console.log("update patient", updatePat);
-
-        setPatients(
-          patients.map((patient) => (patient._id === id ? updatePat : patient))
-        );
-
+        console.log("Patient updated:", response.data);
+        fetchPatients(); // Refresh patients list after updating patient
         setSelectedPatient(null);
-        setIsEditMode(false); // Switch back to Add mode
+        setIsEditMode(false);
       })
       .catch((error) => console.error("Error updating patient:", error));
   };
@@ -72,7 +84,6 @@ const Patients = () => {
       .delete(`http://localhost:4000/patients/delete/${id}`)
       .then((response) => {
         console.log(response.data);
-        setSelectedPatient(null);
         setPatients(patients.filter((patient) => patient._id !== id));
       })
       .catch((error) => console.error("Error deleting patient:", error));
@@ -80,7 +91,7 @@ const Patients = () => {
 
   const handleEditPatient = (patient) => {
     setSelectedPatient(patient);
-    setIsEditMode(true); // Switch to Edit mode
+    setIsEditMode(true);
   };
 
   return (
@@ -124,23 +135,6 @@ const Patients = () => {
                 : setNewPatient({
                     ...newPatient,
                     dob: e.target.value,
-                  })
-            }
-          />
-          <br />
-          <label>Age: </label>
-          <input
-            type="text"
-            value={isEditMode ? selectedPatient.age : newPatient.age}
-            onChange={(e) =>
-              isEditMode
-                ? setSelectedPatient({
-                    ...selectedPatient,
-                    age: e.target.value,
-                  })
-                : setNewPatient({
-                    ...newPatient,
-                    age: e.target.value,
                   })
             }
           />
