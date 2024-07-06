@@ -18,7 +18,13 @@ const Patients = () => {
   useEffect(() => {
     axios
       .get("http://localhost:4000/patients")
-      .then((response) => setPatients(response.data))
+      .then((response) => {
+        const patientsData = response.data.map((patient) => ({
+          ...patient,
+          dob: new Date(patient.dob).toISOString(), // Convert date string to UTC format
+        }));
+        setPatients(patientsData);
+      })
       .catch((error) => console.error("Error fetching patients:", error));
   }, []);
 

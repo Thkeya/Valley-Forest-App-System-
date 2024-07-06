@@ -4,10 +4,12 @@ const PatientCard = ({ patient, onEdit, onDelete }) => {
   // Helper function to format date as Month, Date, Year
   const formatDate = (date) => {
     if (!date) return "";
-    return new Date(date).toLocaleDateString("en-US", {
+    const utcDate = new Date(date);
+    return utcDate.toLocaleDateString("en-US", {
       month: "long",
       day: "numeric",
       year: "numeric",
+      timeZone: "UTC", // Ensure UTC time zone
     });
   };
 

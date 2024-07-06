@@ -14,6 +14,15 @@ const Appointments = () => {
   const [selectedAppointment, setSelectedAppointment] = useState(null);
   const [isEditMode, setIsEditMode] = useState(false);
 
+  const doctors = [
+    "Jane Smith",
+    "Chris Martin",
+    "Valerie Carey",
+    "Derrick Carter",
+    "Stephanie Barrett",
+    "John Davis",
+  ];
+
   useEffect(() => {
     axios
       .get("http://localhost:4000/appointments")
@@ -138,8 +147,7 @@ const Appointments = () => {
               }
             />
             <label>Doctor Name:</label>
-            <input
-              type="text"
+            <select
               value={
                 isEditMode
                   ? selectedAppointment.doctorName
@@ -156,7 +164,14 @@ const Appointments = () => {
                       doctorName: e.target.value,
                     })
               }
-            />
+            >
+              <option value="">Select Doctor</option>
+              {doctors.map((doctor) => (
+                <option key={doctor} value={doctor}>
+                  {doctor}
+                </option>
+              ))}
+            </select>
             <label>Date:</label>
             <input
               type="date"
