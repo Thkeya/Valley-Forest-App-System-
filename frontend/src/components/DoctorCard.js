@@ -4,7 +4,7 @@ const DoctorCard = ({ doctor, onEdit, onDelete }) => {
   return (
     <div className="doctor-card">
       <p>
-        {doctor.name} -{doctor.specialty}
+        {doctor.name} - {doctor.specialty}
       </p>
       <div className="btn-container">
         <button onClick={() => onEdit(doctor)}>Edit</button>
