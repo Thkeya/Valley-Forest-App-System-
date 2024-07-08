@@ -6,10 +6,11 @@
     margin-bottom: 16px;
     text-align: center;
     background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    transition: box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
 
     &:hover {
+        transform: scale(1.05); /* Add this line to apply a transform on hover */
         box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     }
 
@@ -18,10 +19,8 @@
         margin-bottom: 10px;
     }
 
-    p {
-        span {
-            font-weight: 900;
-        }
+    p span {
+        font-weight: 900;
     }
 
     button {
