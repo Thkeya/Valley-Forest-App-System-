@@ -29,7 +29,12 @@
  
     p {
         margin: 0;
+        font-size: 16px;
     }
+    
+    p span {
+      font-weight: 900;
+  }
 
 }
  
