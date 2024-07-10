@@ -1,16 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const Appointment = require("../models/Appointment");
+const cors = require("./cors");
 
 // Get all appointments
-router.route("/").get((req, res) => {
-  Appointment.find()
-    .then((appointments) => res.json(appointments))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+router
+  .route("/")
+  .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+  .get(cors.cors, (req, res) => {
+    Appointment.find()
+      .then((appointments) => res.json(appointments))
+      .catch((err) => res.status(400).json("Error: " + err));
+  });
 
 // Add new appointment
-router.route("/add").post((req, res) => {
+router.route("/add").post(cors.corsWithOptions, (req, res) => {
   const { patientName, doctorName, date, time } = req.body;
   const newAppointment = new Appointment({
     patientName,
@@ -26,7 +30,7 @@ router.route("/add").post((req, res) => {
 });
 
 // Update appointment data
-router.route("/update/:id").post((req, res) => {
+router.route("/update/:id").post(cors.corsWithOptions, (req, res) => {
   Appointment.findById(req.params.id)
     .then((appointment) => {
       appointment.patientName = req.body.patientName;
@@ -43,7 +47,7 @@ router.route("/update/:id").post((req, res) => {
 });
 
 // Delete appointment
-router.route("/delete/:id").delete((req, res) => {
+router.route("/delete/:id").delete(cors.corsWithOptions, (req, res) => {
   Appointment.findByIdAndDelete(req.params.id)
     .then(() => res.json("Appointment deleted."))
     .catch((err) => res.status(400).json("Error: " + err));

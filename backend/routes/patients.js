@@ -1,16 +1,20 @@
 const express = require("express");
 const router = express.Router();
 const Patient = require("../models/Patient");
+const cors = require("./cors");
 
 // Get all patients
-router.route("/").get((req, res) => {
-  Patient.find()
-    .then((patients) => res.json(patients))
-    .catch((err) => res.status(400).json("Error: " + err));
-});
+router
+  .route("/")
+  .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
+  .get(cors.cors, (req, res) => {
+    Patient.find()
+      .then((patients) => res.json(patients))
+      .catch((err) => res.status(400).json("Error: " + err));
+  });
 
 // Add new patient
-router.route("/add").post((req, res) => {
+router.route("/add").post(cors.corsWithOptions, (req, res) => {
   const { name, dob, gender, insurance } = req.body;
 
   const newPatient = new Patient({
@@ -27,7 +31,7 @@ router.route("/add").post((req, res) => {
 });
 
 // Update patient data
-router.route("/update/:id").post((req, res) => {
+router.route("/update/:id").post(cors.corsWithOptions, (req, res) => {
   Patient.findById(req.params.id)
     .then((patient) => {
       if (!patient) {
@@ -48,7 +52,7 @@ router.route("/update/:id").post((req, res) => {
 });
 
 // Delete patient by ID
-router.route("/delete/:id").delete((req, res) => {
+router.route("/delete/:id").delete(cors.corsWithOptions, (req, res) => {
   Patient.findByIdAndDelete(req.params.id)
     .then((patient) => {
       if (!patient) {
