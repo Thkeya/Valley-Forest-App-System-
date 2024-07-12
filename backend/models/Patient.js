@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const patientSchema = new Schema({
-  name: { type: String, required: true },
-  dob: { type: Date, required: true },
-  gender: { type: String, required: true },
-  insurance: { type: String, required: true },
-});
+const patientSchema = new Schema(
+  {
+    name: { type: String, required: true },
+    dob: { type: Date, required: true },
+    gender: { type: String, required: true },
+    insurance: { type: String, required: true },
+  },
+  { timestamps: true }
+);
 
 // Virtual field for age calculation
 patientSchema.virtual("age").get(function () {
